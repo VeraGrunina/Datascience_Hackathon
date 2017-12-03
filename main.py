@@ -7,15 +7,15 @@
 import pandas as pd
 import numpy
 from tags import reshape_tags
-import tf_idf
+import tf_idf as ti
 
-posts_df = pd.read_csv("Posts.csv",  encoding = "ISO-8859-1",nrows=5000)
+posts_df = pd.read_csv("Posts.csv",  encoding = "ISO-8859-1")
 
 reshape_tags(posts_df,10)
 
-clear_posts = posts_df['Body'].apply(lambda x: clear_body(x))
+clear_posts = posts_df['Body'].apply(lambda x: ti.clear_body(x))
 
-tfidf = tfidf_array(clear_posts)
+tfidf = ti.tfidf_array(clear_posts)
 
 model = Word2Vec(clear_posts.apply(lambda row: row.split()),size=200)
 
